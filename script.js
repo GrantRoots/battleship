@@ -1,5 +1,11 @@
 function testFunc() {
-    return 1 + 1
+  return 1 + 1;
 }
 
-export { testFunc }
+hi;
+
+let bye = "hi";
+
+let that = 'hi';
+
+export { testFunc };
