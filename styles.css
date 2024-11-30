@@ -1,3 +1,44 @@
 body {
+  margin: 0;
   background-color: rgb(3, 3, 75);
+  display: grid;
+  grid-template-rows: 10vh 90vh;
+  height: 100vh;
+  width: 100vw;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.game {
+  background-color: rgb(72, 17, 17);
+  display: grid;
+  grid-template-columns: 50vw 50vw;
+}
+
+.player-board {
+  background-color: blue;
+  padding: 20px;
+}
+
+.computer-board {
+  padding: 20px;
+}
+
+.board {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  width: 100%;
+  background-color: gray;
+}
+
+.square {
+  outline: 1px solid;
+  height: 10%;
+  width: 10%;
+  background-color: white;
 }

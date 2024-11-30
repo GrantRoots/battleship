@@ -91,8 +91,6 @@ class Player {
   constructor() {
     this.gameboard = new Gameboard();
   }
-
-  //highlightShips() {}
 }
 
 export { Ship, Gameboard, Player };

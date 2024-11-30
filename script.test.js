@@ -1,5 +1,1 @@
-import { testFunc } from "./script.js";
-
-test("test", () => {
-  expect(testFunc()).toBe(2);
-});
+import {} from "./script.js";
