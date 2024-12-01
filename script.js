@@ -65,6 +65,7 @@ class Gameboard {
     //then sends the hit() to the right ship
     if (this.coords[y][x] !== 0) {
       this.coords[y][x].hit();
+      this.coords[y][x].isSunk();
       return true;
     }
     //missed attack

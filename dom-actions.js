@@ -17,6 +17,7 @@ function makeSquares(name) {
 
 const playerBoard = document.getElementById("playerBoard");
 const computerBoard = document.getElementById("computerBoard");
+const turn = document.getElementById("turns");
 
 playerBoard.appendChild(makeSquares("player"));
 computerBoard.appendChild(makeSquares("computer"));
@@ -37,12 +38,40 @@ for (let y = 0; y < 10; y++) {
   }
 }
 
-//click on ship
-let turn = "player";
-
+const controller = new AbortController();
 const computerSquares = document.querySelectorAll(".computer-board .square");
-computerSquares.forEach((square) => {
-  square.addEventListener("click", () => {
-    //do something
+function playerTurn() {
+  computerSquares.forEach((square) => {
+    square.addEventListener(
+      "click",
+      () => {
+        //click square to attack
+        const coordinates = square.id.slice(0, -8);
+        const y = coordinates[1];
+        const x = coordinates[4];
+        if (computer.gameboard.recieveAttack(y, x) === true) {
+          square.style.backgroundColor = "red";
+          //check if sunk
+          if (computer.gameboard.coords[y][x].sunk === true) {
+            square.textContent = "sunk";
+            if (computer.gameboard.allSunk() === true) {
+              //game over
+            }
+          }
+          //can click again
+        } else {
+          square.style.backgroundColor = "black";
+          //end turn
+          controller.abort();
+        }
+      },
+      { signal: controller.signal },
+    );
   });
-});
+}
+
+function computerTurn() {}
+
+function playGame() {
+  playerTurn();
+}
