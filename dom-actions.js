@@ -55,9 +55,10 @@ function playerTurn() {
           if (computer.gameboard.coords[y][x].sunk === true) {
             square.textContent = "sunk";
             if (computer.gameboard.allSunk() === true) {
-              //game over
+              //game over player wins
             }
           }
+          controller.abort();
           //can click again
         } else {
           square.style.backgroundColor = "black";
@@ -70,8 +71,31 @@ function playerTurn() {
   });
 }
 
-function computerTurn() {}
+function computerTurn() {
+  turn.textContent = "Computer's Turn!";
+  setTimeout(() => {
+    const y = Math.floor(Math.random() * 10);
+    const x = Math.floor(Math.random() * 10);
+    const square = document.getElementById(`[${y}][${x}]player`);
+    if (player.gameboard.recieveAttack(y, x) === true) {
+      square.style.backgroundColor = "red";
+      if (player.gameboard.coords[y][x].sunk === true) {
+        square.textContent = "Sunk";
+        if (player.gameboard.allSunk() === true) {
+          //game over computer wins
+          // return true ?
+        }
+      }
+    } else {
+      square.style.backgroundColor = "black";
+    }
+  }, 2000);
+}
 
 function playGame() {
-  playerTurn();
+  let winner = false;
+  while (winner === false) {
+    winner = playerTurn();
+    winner = computerTurn();
+  }
 }
