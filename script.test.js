@@ -1,1 +1,1 @@
-import {} from "./script.js";
+import { Ship, Gameboard, Player } from "./script.js";

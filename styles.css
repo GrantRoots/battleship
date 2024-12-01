@@ -11,6 +11,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  color: white;
 }
 
 .game {
@@ -33,12 +34,11 @@ body {
   flex-wrap: wrap;
   height: 100%;
   width: 100%;
-  background-color: gray;
 }
 
 .square {
   outline: 1px solid;
   height: 10%;
   width: 10%;
-  background-color: white;
+  background-color: gray;
 }
