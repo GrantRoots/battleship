@@ -32,7 +32,17 @@ for (let y = 0; y < 10; y++) {
   for (let x = 0; x < 10; x++) {
     if (player.gameboard.coords[y][x] !== 0) {
       const highlightShip = document.getElementById(`[${y}][${x}]player`);
-      highlightShip.style.backgroundColor = "red";
+      highlightShip.style.backgroundColor = "darkred";
     }
   }
 }
+
+//click on ship
+let turn = "player";
+
+const computerSquares = document.querySelectorAll(".computer-board .square");
+computerSquares.forEach((square) => {
+  square.addEventListener("click", () => {
+    //do something
+  });
+});
