@@ -71,6 +71,7 @@ function playerTurn() {
   });
 }
 
+let attackedSquares = [];
 function computerTurn() {
   turn.textContent = "Computer's Turn!";
   setTimeout(() => {
@@ -78,6 +79,7 @@ function computerTurn() {
     const x = Math.floor(Math.random() * 10);
     const square = document.getElementById(`[${y}][${x}]player`);
     if (player.gameboard.recieveAttack(y, x) === true) {
+      attackedSquares.push([y, x]);
       square.style.backgroundColor = "red";
       if (player.gameboard.coords[y][x].sunk === true) {
         square.textContent = "Sunk";
@@ -85,6 +87,7 @@ function computerTurn() {
           gameOver("Computer");
         }
       }
+      computerTurn();
     } else {
       square.style.backgroundColor = "black";
       playerTurn();
