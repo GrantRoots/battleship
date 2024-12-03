@@ -17,7 +17,7 @@ function makeSquares(name) {
 
 const playerBoard = document.getElementById("playerBoard");
 const computerBoard = document.getElementById("computerBoard");
-const turn = document.getElementById("turns");
+const turn = document.getElementById("turn");
 
 playerBoard.appendChild(makeSquares("player"));
 computerBoard.appendChild(makeSquares("computer"));
@@ -38,9 +38,10 @@ for (let y = 0; y < 10; y++) {
   }
 }
 
-const controller = new AbortController();
 const computerSquares = document.querySelectorAll(".computer-board .square");
 function playerTurn() {
+  turn.textContent = "Your Turn";
+  const controller = new AbortController();
   computerSquares.forEach((square) => {
     square.addEventListener(
       "click",
@@ -51,19 +52,18 @@ function playerTurn() {
         const x = coordinates[4];
         if (computer.gameboard.recieveAttack(y, x) === true) {
           square.style.backgroundColor = "red";
-          //check if sunk
           if (computer.gameboard.coords[y][x].sunk === true) {
             square.textContent = "sunk";
             if (computer.gameboard.allSunk() === true) {
               //game over player wins
+              return "player";
             }
           }
-          controller.abort();
-          //can click again
         } else {
           square.style.backgroundColor = "black";
-          //end turn
           controller.abort();
+          // do I need a next turn function? to start comp turn
+          computerTurn();
         }
       },
       { signal: controller.signal },
@@ -83,19 +83,28 @@ function computerTurn() {
         square.textContent = "Sunk";
         if (player.gameboard.allSunk() === true) {
           //game over computer wins
-          // return true ?
+          return "computer";
         }
       }
     } else {
       square.style.backgroundColor = "black";
+      playerTurn();
     }
   }, 2000);
 }
 
-function playGame() {
+//fix
+async function playGame() {
   let winner = false;
   while (winner === false) {
     winner = playerTurn();
-    winner = computerTurn();
+    //winner = computerTurn();
+  }
+  if (winner === "player") {
+    turn.textContent = "PLAYER WINS!!!";
+  } else {
+    turn.textContent = "Computer wins!";
   }
 }
+
+playGame();
