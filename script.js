@@ -46,95 +46,96 @@ class Gameboard {
     return true;
   }
 
+  makeShip(count, length) {
+    const y = Math.floor(Math.random() * 10);
+    const x = Math.floor(Math.random() * 10);
+    if (checkTouching(y, x) === true) {
+      makeShip(count, length);
+    }
+    const newShip = new Ship(length);
+    this.ships.push(newShip);
+    this.coords[y][x] = newShip;
+    if (length > 1) {
+      let checkedDirection = [];
+      function choseDirection() {
+        let nextSquares = Math.floor(Math.random() * 4);
+        //up
+        if (nextSquares === 0 && checkedDirection.includes(0) === false) {
+          for (let i = 1; i < length; i++) {
+            this.coords[y - i][x] = newShip;
+            if (checkTouching(y - i, x) === true) {
+              //remove old squares and try next
+              while (i !== 1) {
+                this.coords[y - i][x] = 0;
+                i--;
+              }
+              //change direction
+              checkedDirection.push(0);
+              choseDirection();
+              break;
+            }
+          }
+        }
+        //down
+        if (nextSquares === 1 && checkedDirection.includes(1) === false) {
+          for (let i = 1; i < length; i++) {
+            this.coords[y + i][x] = newShip;
+            if (checkTouching(y + i, x) === true) {
+              //remove old squares and try next
+              while (i !== 1) {
+                this.coords[y + i][x] = 0;
+                i--;
+              }
+              //change direction
+              checkedDirection.push(1);
+              choseDirection();
+              break;
+            }
+          }
+        }
+        //left
+        if (nextSquares === 2 && checkedDirection.includes(2) === false) {
+          for (let i = 1; i < length; i++) {
+            this.coords[y][x - i] = newShip;
+            if (checkTouching(y, x - i) === true) {
+              //remove old squares and try next
+              while (i !== 1) {
+                this.coords[y][x - i] = 0;
+                i--;
+              }
+              //change direction
+              checkedDirection.push(2);
+              choseDirection();
+              break;
+            }
+          }
+        }
+        //right
+        if (nextSquares === 3 && checkedDirection.includes(3) === false) {
+          for (let i = 1; i < length; i++) {
+            this.coords[y][x + i] = newShip;
+            if (checkTouching(y, x + i) === true) {
+              //remove old squares and try next
+              while (i !== 1) {
+                this.coords[y][x + i] = 0;
+                i--;
+              }
+              //change direction
+              checkedDirection.push(3);
+              choseDirection();
+              break;
+            }
+          }
+        }
+      }
+      choseDirection();
+    }
+  }
+
   placeShips() {
     //randomly place ships
     //check if its touching another ship
 
-    function makeShip(count, length) {
-      const y = Math.floor(Math.random() * 10);
-      const x = Math.floor(Math.random() * 10);
-      if (checkTouching(y, x) === true) {
-        makeShip(count, length);
-      }
-      const newShip = new Ship(length);
-      this.ships.push(newShip);
-      this.coords[y][x] = newShip;
-      if (length > 1) {
-        let checkedDirection = [];
-        function choseDirection() {
-          let nextSquares = Math.floor(Math.random() * 4);
-          //up
-          if (nextSquares === 0 && checkedDirection.includes(0) === false) {
-            for (let i = 1; i < length; i++) {
-              this.coords[y - i][x] = newShip;
-              if (checkTouching(y - i, x) === true) {
-                //remove old squares and try next
-                while (i !== 1) {
-                  this.coords[y - i][x] = 0;
-                  i--;
-                }
-                //change direction
-                checkedDirection.push(0);
-                choseDirection();
-                break;
-              }
-            }
-          }
-          //down
-          if (nextSquares === 1 && checkedDirection.includes(1) === false) {
-            for (let i = 1; i < length; i++) {
-              this.coords[y + i][x] = newShip;
-              if (checkTouching(y + i, x) === true) {
-                //remove old squares and try next
-                while (i !== 1) {
-                  this.coords[y + i][x] = 0;
-                  i--;
-                }
-                //change direction
-                checkedDirection.push(1);
-                choseDirection();
-                break;
-              }
-            }
-          }
-          //left
-          if (nextSquares === 2 && checkedDirection.includes(2) === false) {
-            for (let i = 1; i < length; i++) {
-              this.coords[y][x - i] = newShip;
-              if (checkTouching(y, x - i) === true) {
-                //remove old squares and try next
-                while (i !== 1) {
-                  this.coords[y][x - i] = 0;
-                  i--;
-                }
-                //change direction
-                checkedDirection.push(2);
-                choseDirection();
-                break;
-              }
-            }
-          }
-          //right
-          if (nextSquares === 3 && checkedDirection.includes(3) === false) {
-            for (let i = 1; i < length; i++) {
-              this.coords[y][x + i] = newShip;
-              if (checkTouching(y, x + i) === true) {
-                //remove old squares and try next
-                while (i !== 1) {
-                  this.coords[y][x + i] = 0;
-                  i--;
-                }
-                //change direction
-                checkedDirection.push(3);
-                choseDirection();
-                break;
-              }
-            }
-          }
-        }
-        choseDirection();
-      }
-    }
     // 1 4 len
     makeShip(1, 4);
     // 2 3len
