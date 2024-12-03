@@ -81,6 +81,10 @@ function computerTurn() {
     let attacked = attackedSquares.find(
       (element) => element[0] === y && element[1] === x,
     );
+    if (attacked !== undefined) {
+      console.log("attack found");
+      computerTurn();
+    }
     const square = document.getElementById(`[${y}][${x}]player`);
     if (player.gameboard.recieveAttack(y, x) === true) {
       attackedSquares.push([y, x]);
