@@ -29,14 +29,17 @@ player.gameboard.placeShips();
 computer.gameboard.placeShips();
 
 //hightlight ships
-for (let y = 0; y < 10; y++) {
-  for (let x = 0; x < 10; x++) {
-    if (player.gameboard.coords[y][x] !== 0) {
-      const highlightShip = document.getElementById(`[${y}][${x}]player`);
-      highlightShip.style.backgroundColor = "darkred";
+function hightLightShips() {
+  for (let y = 0; y < 10; y++) {
+    for (let x = 0; x < 10; x++) {
+      if (player.gameboard.coords[y][x] !== 0) {
+        const highlightShip = document.getElementById(`[${y}][${x}]player`);
+        highlightShip.style.backgroundColor = "darkred";
+      }
     }
   }
 }
+hightLightShips();
 
 const computerSquares = document.querySelectorAll(".computer-board .square");
 function playerTurn() {
@@ -106,4 +109,12 @@ function gameOver(winner) {
   turn.textContent = `${winner} Wins!!!`;
 }
 
+//allow player to place ships
+//button to prompt and type coords. "Place own ships"
+//have a button for random "Place Ships randomly"
+
 playerTurn();
+
+let test = [0];
+
+console.log(test[0 - 1]);
