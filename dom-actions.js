@@ -40,7 +40,7 @@ for (let y = 0; y < 10; y++) {
 
 const computerSquares = document.querySelectorAll(".computer-board .square");
 function playerTurn() {
-  turn.textContent = "Your Turn";
+  turn.textContent = "Your Turn!";
   const controller = new AbortController();
   computerSquares.forEach((square) => {
     square.addEventListener(
@@ -55,8 +55,8 @@ function playerTurn() {
           if (computer.gameboard.coords[y][x].sunk === true) {
             square.textContent = "sunk";
             if (computer.gameboard.allSunk() === true) {
-              //game over player wins
-              return "player";
+              gameOver("Player");
+              controller.abort();
             }
           }
         } else {
@@ -82,29 +82,18 @@ function computerTurn() {
       if (player.gameboard.coords[y][x].sunk === true) {
         square.textContent = "Sunk";
         if (player.gameboard.allSunk() === true) {
-          //game over computer wins
-          return "computer";
+          gameOver("Computer");
         }
       }
     } else {
       square.style.backgroundColor = "black";
       playerTurn();
     }
-  }, 2000);
+  }, 1000);
 }
 
-//fix
-async function playGame() {
-  let winner = false;
-  while (winner === false) {
-    winner = playerTurn();
-    //winner = computerTurn();
-  }
-  if (winner === "player") {
-    turn.textContent = "PLAYER WINS!!!";
-  } else {
-    turn.textContent = "Computer wins!";
-  }
+function gameOver(winner) {
+  turn.textContent = `${winner} Wins!!!`;
 }
 
-playGame();
+playerTurn();
