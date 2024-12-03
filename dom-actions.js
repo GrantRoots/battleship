@@ -77,6 +77,10 @@ function computerTurn() {
   setTimeout(() => {
     const y = Math.floor(Math.random() * 10);
     const x = Math.floor(Math.random() * 10);
+    //check if attacked
+    let attacked = attackedSquares.find(
+      (element) => element[0] === y && element[1] === x,
+    );
     const square = document.getElementById(`[${y}][${x}]player`);
     if (player.gameboard.recieveAttack(y, x) === true) {
       attackedSquares.push([y, x]);
