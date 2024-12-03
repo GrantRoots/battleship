@@ -82,7 +82,6 @@ function computerTurn() {
       (element) => element[0] === y && element[1] === x,
     );
     if (attacked !== undefined) {
-      console.log("attack found");
       computerTurn();
     }
     const square = document.getElementById(`[${y}][${x}]player`);
