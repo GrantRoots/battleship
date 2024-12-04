@@ -114,7 +114,3 @@ function gameOver(winner) {
 //have a button for random "Place Ships randomly"
 
 playerTurn();
-
-let test = [0];
-
-console.log(test[0 - 1]);
