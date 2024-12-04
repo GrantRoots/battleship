@@ -99,6 +99,11 @@ class Gameboard {
     if (nextSquares === 0 && checkedDirection.includes(0) === false) {
       for (let i = 1; i < length; i++) {
         if (y - i < 0) {
+          i--;
+          while (i !== 0) {
+            this.coords[y - i][x] = 0;
+            i--;
+          }
           checkedDirection.push(0);
           this.choseDirection(newShip, length, y, x, checkedDirection);
           break;
@@ -114,11 +119,17 @@ class Gameboard {
           break;
         }
       }
+      return;
     }
     //down
     if (nextSquares === 1 && checkedDirection.includes(1) === false) {
       for (let i = 1; i < length; i++) {
         if (y + i > 9) {
+          i--;
+          while (i !== 0) {
+            this.coords[y + i][x] = 0;
+            i--;
+          }
           checkedDirection.push(1);
           this.choseDirection(newShip, length, y, x, checkedDirection);
           break;
@@ -134,11 +145,17 @@ class Gameboard {
           break;
         }
       }
+      return;
     }
     //left
     if (nextSquares === 2 && checkedDirection.includes(2) === false) {
       for (let i = 1; i < length; i++) {
         if (x - i < 0) {
+          i--;
+          while (i !== 0) {
+            this.coords[y][x - i] = 0;
+            i--;
+          }
           checkedDirection.push(2);
           this.choseDirection(newShip, length, y, x, checkedDirection);
           break;
@@ -154,11 +171,17 @@ class Gameboard {
           break;
         }
       }
+      return;
     }
     //right
     if (nextSquares === 3 && checkedDirection.includes(3) === false) {
       for (let i = 1; i < length; i++) {
         if (x + i > 9) {
+          i--;
+          while (i !== 0) {
+            this.coords[y][x + i] = 0;
+            i--;
+          }
           checkedDirection.push(3);
           this.choseDirection(newShip, length, y, x, checkedDirection);
           break;
@@ -174,6 +197,7 @@ class Gameboard {
           break;
         }
       }
+      return;
     } else {
       return false;
     }
@@ -184,25 +208,23 @@ class Gameboard {
     const x = Math.floor(Math.random() * 10);
     if (this.checkTouching(y, x) === true) {
       this.makeShip(count, length);
-      return;
-    }
-    const newShip = new Ship(length);
-    this.ships.push(newShip);
-    this.coords[y][x] = newShip;
-    let checkedDirection = [];
-    if (length > 1) {
-      if (
-        this.choseDirection(newShip, length, y, x, checkedDirection) === false
-      ) {
-        this.makeShip(count, length);
+    } else {
+      const newShip = new Ship(length);
+      this.ships.push(newShip);
+      this.coords[y][x] = newShip;
+      console.log(y, x, "first square");
+      if (length > 1) {
+        let checkedDirection = [];
+        if (
+          this.choseDirection(newShip, length, y, x, checkedDirection) === false
+        ) {
+          this.makeShip(count, length);
+        }
       }
     }
   }
 
   placeShips() {
-    //randomly place ships
-    //check if its touching another ship
-
     // 1 4 len
     this.makeShip(1, 4);
     // 2 3len
