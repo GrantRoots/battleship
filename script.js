@@ -238,13 +238,21 @@ class Gameboard {
   }
 
   placeShips() {
+    //add a count to makeShip?
     // 1 4 len
     this.makeShip(4);
     // 2 3len
     this.makeShip(3);
+    this.makeShip(3);
     // // 3 2len
     this.makeShip(2);
+    this.makeShip(2);
+    this.makeShip(2);
     // // 4 1len
+    this.makeShip(1);
+    this.makeShip(1);
+    this.makeShip(1);
+    this.makeShip(1);
   }
 
   recieveAttack(y, x) {
