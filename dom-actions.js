@@ -26,6 +26,7 @@ const player = new Player();
 const computer = new Player();
 
 player.gameboard.placeShips();
+console.log("COMPUTER!!!!!!!!!!!!!!");
 computer.gameboard.placeShips();
 
 //hightlight ships

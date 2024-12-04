@@ -94,18 +94,26 @@ class Gameboard {
   }
 
   choseDirection(newShip, length, y, x, checkedDirection) {
+    console.log(checkedDirection);
     let nextSquares = Math.floor(Math.random() * 4);
+    while (checkedDirection.includes(nextSquares)) {
+      nextSquares = Math.floor(Math.random() * 4);
+    }
     //up
     if (nextSquares === 0 && checkedDirection.includes(0) === false) {
+      console.log("up");
       for (let i = 1; i < length; i++) {
+        //i = 3 y = 2
         if (y - i < 0) {
           i--;
           while (i !== 0) {
             this.coords[y - i][x] = 0;
             i--;
           }
+          //this.coords[y][x] = 0;
           checkedDirection.push(0);
           this.choseDirection(newShip, length, y, x, checkedDirection);
+          //is this even calling again?
           break;
         }
         this.coords[y - i][x] = newShip;
@@ -123,6 +131,7 @@ class Gameboard {
     }
     //down
     if (nextSquares === 1 && checkedDirection.includes(1) === false) {
+      console.log("down");
       for (let i = 1; i < length; i++) {
         if (y + i > 9) {
           i--;
@@ -149,6 +158,7 @@ class Gameboard {
     }
     //left
     if (nextSquares === 2 && checkedDirection.includes(2) === false) {
+      console.log("left");
       for (let i = 1; i < length; i++) {
         if (x - i < 0) {
           i--;
@@ -175,6 +185,7 @@ class Gameboard {
     }
     //right
     if (nextSquares === 3 && checkedDirection.includes(3) === false) {
+      console.log("right");
       for (let i = 1; i < length; i++) {
         if (x + i > 9) {
           i--;
@@ -198,53 +209,42 @@ class Gameboard {
         }
       }
       return;
-    } else {
-      return false;
     }
+    return false;
   }
 
-  makeShip(count, length) {
-    for (let i = 0; i < count; i++) {
-      const y = Math.floor(Math.random() * 10);
-      const x = Math.floor(Math.random() * 10);
-      if (this.checkTouching(y, x) === true) {
-        this.makeShip(count, length);
-      } else {
-        const newShip = new Ship(length);
-        this.ships.push(newShip);
-        this.coords[y][x] = newShip;
-        if (length > 1) {
-          let checkedDirection = [];
-          if (
-            this.choseDirection(newShip, length, y, x, checkedDirection) ===
-            false
-          ) {
-            this.makeShip(count, length);
-          }
+  makeShip(length) {
+    const y = Math.floor(Math.random() * 10);
+    const x = Math.floor(Math.random() * 10);
+    if (this.checkTouching(y, x) === true) {
+      this.makeShip(length);
+    } else {
+      const newShip = new Ship(length);
+      this.ships.push(newShip);
+      this.coords[y][x] = newShip;
+      console.log(y, x, "first square");
+      if (length > 1) {
+        let checkedDirection = [];
+        //all directions are invalid
+        if (
+          this.choseDirection(newShip, length, y, x, checkedDirection) === false
+        ) {
+          console.log("false called");
+          this.makeShip(length);
         }
+        console.log("true");
       }
     }
   }
 
   placeShips() {
     // 1 4 len
-    this.makeShip(1, 4);
+    this.makeShip(4);
     // 2 3len
-    this.makeShip(2, 3);
-    // const threeShipOne = new Ship(3);
-    // this.ships.push(threeShipOne);
-    // this.coords[7][0] = threeShipOne;
-    // this.coords[7][1] = threeShipOne;
-    // this.coords[7][2] = threeShipOne;
+    this.makeShip(3);
     // // 3 2len
-    // const twoShipOne = new Ship(2);
-    // this.ships.push(twoShipOne);
-    // this.coords[5][0] = twoShipOne;
-    // this.coords[5][1] = twoShipOne;
+    this.makeShip(2);
     // // 4 1len
-    // const oneShipOne = new Ship(1);
-    // this.ships.push(oneShipOne);
-    // this.coords[3][0] = oneShipOne;
   }
 
   recieveAttack(y, x) {
