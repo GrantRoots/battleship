@@ -204,21 +204,23 @@ class Gameboard {
   }
 
   makeShip(count, length) {
-    const y = Math.floor(Math.random() * 10);
-    const x = Math.floor(Math.random() * 10);
-    if (this.checkTouching(y, x) === true) {
-      this.makeShip(count, length);
-    } else {
-      const newShip = new Ship(length);
-      this.ships.push(newShip);
-      this.coords[y][x] = newShip;
-      console.log(y, x, "first square");
-      if (length > 1) {
-        let checkedDirection = [];
-        if (
-          this.choseDirection(newShip, length, y, x, checkedDirection) === false
-        ) {
-          this.makeShip(count, length);
+    for (let i = 0; i < count; i++) {
+      const y = Math.floor(Math.random() * 10);
+      const x = Math.floor(Math.random() * 10);
+      if (this.checkTouching(y, x) === true) {
+        this.makeShip(count, length);
+      } else {
+        const newShip = new Ship(length);
+        this.ships.push(newShip);
+        this.coords[y][x] = newShip;
+        if (length > 1) {
+          let checkedDirection = [];
+          if (
+            this.choseDirection(newShip, length, y, x, checkedDirection) ===
+            false
+          ) {
+            this.makeShip(count, length);
+          }
         }
       }
     }
@@ -228,6 +230,7 @@ class Gameboard {
     // 1 4 len
     this.makeShip(1, 4);
     // 2 3len
+    this.makeShip(2, 3);
     // const threeShipOne = new Ship(3);
     // this.ships.push(threeShipOne);
     // this.coords[7][0] = threeShipOne;
