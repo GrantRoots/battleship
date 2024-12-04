@@ -26,7 +26,6 @@ const player = new Player();
 const computer = new Player();
 
 player.gameboard.placeShips();
-console.log("COMPUTER!!!!!!!!!!!!!!");
 computer.gameboard.placeShips();
 
 //hightlight ships
@@ -110,8 +109,10 @@ function gameOver(winner) {
   turn.textContent = `${winner} Wins!!!`;
 }
 
-//allow player to place ships
-//button to prompt and type coords. "Place own ships"
-//have a button for random "Place Ships randomly"
+const randomize = document.getElementById("randomize");
+
+randomize.addEventListener("click", () => {
+  location.reload(true);
+});
 
 playerTurn();
