@@ -85,7 +85,9 @@ function computerTurn() {
       (element) => element[0] === y && element[1] === x,
     );
     if (attacked !== undefined) {
+      console.log("91 undefined");
       computerTurn();
+      return;
     }
     const square = document.getElementById(`[${y}][${x}]player`);
     if (player.gameboard.recieveAttack(y, x) === true) {
