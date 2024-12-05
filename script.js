@@ -94,14 +94,12 @@ class Gameboard {
   }
 
   choseDirection(newShip, length, y, x, checkedDirection) {
-    console.log(checkedDirection);
     let nextSquares = Math.floor(Math.random() * 4);
     while (checkedDirection.includes(nextSquares)) {
       nextSquares = Math.floor(Math.random() * 4);
     }
     //up
     if (nextSquares === 0 && checkedDirection.includes(0) === false) {
-      console.log("up");
       for (let i = 1; i < length; i++) {
         //i = 3 y = 2
         if (y - i < 0) {
@@ -131,7 +129,6 @@ class Gameboard {
     }
     //down
     if (nextSquares === 1 && checkedDirection.includes(1) === false) {
-      console.log("down");
       for (let i = 1; i < length; i++) {
         if (y + i > 9) {
           i--;
@@ -158,7 +155,6 @@ class Gameboard {
     }
     //left
     if (nextSquares === 2 && checkedDirection.includes(2) === false) {
-      console.log("left");
       for (let i = 1; i < length; i++) {
         if (x - i < 0) {
           i--;
@@ -185,7 +181,6 @@ class Gameboard {
     }
     //right
     if (nextSquares === 3 && checkedDirection.includes(3) === false) {
-      console.log("right");
       for (let i = 1; i < length; i++) {
         if (x + i > 9) {
           i--;
@@ -222,17 +217,14 @@ class Gameboard {
       const newShip = new Ship(length);
       this.ships.push(newShip);
       this.coords[y][x] = newShip;
-      console.log(y, x, "first square");
       if (length > 1) {
         let checkedDirection = [];
         //all directions are invalid
         if (
           this.choseDirection(newShip, length, y, x, checkedDirection) === false
         ) {
-          console.log("false called");
           this.makeShip(length);
         }
-        console.log("true");
       }
     }
   }

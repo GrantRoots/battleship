@@ -85,7 +85,6 @@ function computerTurn() {
       (element) => element[0] === y && element[1] === x,
     );
     if (attacked !== undefined) {
-      console.log("91 undefined");
       computerTurn();
       return;
     }
